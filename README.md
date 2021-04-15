@@ -1,3 +1,13 @@
+# React Pong Game (WIP)
+
+This project is a react port of the pong game done on this tutorial https://www.youtube.com/watch?v=gRkYtMpd0AY&ab_channel=hdeleon.net. The original code is here https://github.com/powerhdeleon/pongjavascript/blob/master/pong.html
+
+The intention of this is just to try out something different and to build something funny.
+
+---
+
+**This was bootstraped with CRA**
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
