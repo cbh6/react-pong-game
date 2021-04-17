@@ -3,6 +3,7 @@ import './App.css';
 import Ball from './Ball';
 import Bar from './Bar';
 import Line from './Line';
+import { useGame } from './GameContext';
 
 function App() {
   const time = 50;
@@ -13,11 +14,11 @@ function App() {
   const [controlGame, setControlGame] = useState(null);
   const [player1, setPlayer1] = useState({ keyPress: false, keyCode: null });
   const [player2, setPlayer2] = useState({ keyPress: false, keyCode: null });
-  const [barLeftPos, setBarLeftPos] = useState(0);
-  const [barRightPos, setBarRightPos] = useState(0);
 
   const barLeft = useRef(null);
   const barRight = useRef(null);
+
+  const { state, dispatch } = useGame();
 
   const play = () => {};
 
@@ -35,32 +36,29 @@ function App() {
     document.onkeydown = function (e) {
       switch (e.key) {
         case 'q':
-          setBarLeftPos(barLeft.current.offsetTop - movementBar);
+          dispatch({ type: 'setBarLeftPos', payload: barLeft.current.offsetTop - movementBar });
           break;
         case 'a':
-          setBarLeftPos(barLeft.current.offsetTop + movementBar);
+          dispatch({ type: 'setBarLeftPos', payload: barLeft.current.offsetTop + movementBar });
           break;
         case 'o':
-          setBarRightPos(barRight.current.offsetTop - movementBar);
+          dispatch({ type: 'setBarRightPos', payload: barRight.current.offsetTop - movementBar });
           break;
         case 'l':
-          setBarRightPos(barRight.current.offsetTop + movementBar);
+          dispatch({ type: 'setBarRightPos', payload: barRight.current.offsetTop + movementBar });
           break;
         default:
           break;
       }
     };
-  }, [player1, player2]);
+  }, [player1, player2, dispatch]);
 
   return (
     <div className="App">
-      {console.log(barLeft)}
-      {console.log(barRight)}
-      {console.log(player1)}
-      {console.log(player2)}
+      {console.log(JSON.stringify(state))}
       <Ball />
-      <Bar position="left" top={barLeftPos} ref={barLeft} />
-      <Bar position="right" top={barRightPos} ref={barRight} />
+      <Bar position="left" top={state.barLeftPos} ref={barLeft} />
+      <Bar position="right" top={state.barRightPos} ref={barRight} />
       <Line />
     </div>
   );
